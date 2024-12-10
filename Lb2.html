@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attorney Pen</title>
+    <style>
+           /* Основные стили */
+           body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #service-list {
+            margin-top: 20px;
+        }
+
+        .service-item {
+            background-color: #e0e0e0;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .service-item:hover {
+            background-color: #d1d1d1;
+        }
+
+        /* Скрыть блок с описанием, если не используется */
+        .hidden {
+            display: none;
+        }
+
+        #service-description {
+            margin-top: 20px;
+            font-style: italic;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            color: #333;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .services, .legal-tips {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .service-item, .tip-item {
+            margin: 15px 0;
+        }
+        .tip-item {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin-top: 30px;
+        }
+        /* Стиль полей ввода */
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Кнопка */
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Для моб. устройств */
+        @media (max-width: 500px) {
+            .container {
+                padding: 10px;
+                max-width: 100%;
+            }
+
+            input[type="text"],
+            input[type="number"] {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+
+     
+    </style>
+</head>
+<body>
+
+   
+
+    <h1>Юридическая консультация</h1> 
+    <!-- Кнопки для различных действий -->
+    <button id="callbackButton">Запросить обратный звонок</button>
+    <button id="calcButton">Рассчитать стоимость услуги</button>
+    <button id="consultButton">Запросить консультацию</button>
+    <button id="scheduleButton">Выбрать время для консультации</button>
+    <button id="caseEvalButton">Оценить мое дело</button>
+
+    <h1>Предоставляемые Юридические Услуги</h1>
+    
+    
+
+   
+    <div class="container">
+        <!-- Заголовок страницы -->
+        <h1>Информация о пользователе</h1>
+    
+    <p>Имя: <span class="data" data-key="name">Ернур</span></p>
+    <p>Возраст: <span class="data" data-key="age">18</span></p>
+
+    <h3>Изменить данные:</h3>
+    <input id="inputName" type="text" placeholder="Введите новое имя" />
+    <input id="inputAge" type="number" placeholder="Введите новый возраст" />
+    <button onclick="updatePersonFromInput()">Обновить</button>
+    
+
+    <div class="container">
+        <h1>Наши Юридические Услуги</h1>
+
+   <!-- Список услуг -->
+   <div id="service-list"></div>
+
+   <!-- Описание услуги -->
+   <div id="service-description" class="hidden"></div>
+
+   <!-- Секция юридических советов -->
+   <div class="legal-tips">
+    <h2>Полезные юридические советы</h2>
+    <div id="tip-list"></div>
+</div>
+</div>
+
+    <footer>
+        <p>&copy; 2024 Юридическая компания "Attorney Pen". Все права защищены.</p>
+    </footer>
+
+    <script>
+     // Обработчик для запроса обратного звонка
+     var callbackButton = document.getElementById("callbackButton");
+        callbackButton.addEventListener("click", function () {
+            let phoneNumber = prompt("Введите ваш номер телефона:");
+            if(phoneNumber) {
+                alert("Спасибо! Мы скоро вам перезвоним на номер " + phoneNumber);
+                // Здесь можно отправить номер телефона на сервер для обратного звонка
+            } else {
+                alert("Номер телефона не введен.");
+            }
+        });
+
+       // Обработчик для расчета стоимости услуги
+       var calcButton = document.getElementById("calcButton");
+        calcButton.addEventListener("click", function () {
+            let serviceType = prompt("Введите тип услуги (например, консультация, оформление договора):");
+            let hours = prompt("Введите количество часов услуги:");
+            if(serviceType && hours) {
+                let costPerHour = 5000; // Примерная стоимость за час услуги
+                let totalCost = hours * costPerHour;
+                alert("Предварительная стоимость услуги \"" + serviceType + "\": " + totalCost + " тенге.");
+                // Здесь можно отправить данные для расчета на сервер или записать в базу данных
+            } else {
+                alert("Недостаточно данных для расчета.");
+            }
+        });
+
+        // Обработчик для запроса консультации
+        var consultButton = document.getElementById("consultButton");
+        consultButton.addEventListener("click", function () {
+            let question = prompt("Опишите ваш юридический вопрос:");
+            if(question) {
+                alert("Спасибо за ваш запрос! Наш специалист свяжется с вами.");
+                // Здесь можно отправить вопрос на сервер для запроса консультации
+            } else {
+                alert("Вопрос не введен.");
+            }
+        });
+
+         // Обработчик для выбора времени консультации
+         var scheduleButton = document.getElementById("scheduleButton");
+        scheduleButton.addEventListener("click", function () {
+            let time = prompt("Введите удобное для вас время (например, 15:00):");
+            if(time) {
+                alert("Ваше время для консультации: " + time);
+                // Здесь можно записать время для консультации
+            } else {
+                alert("Время не введено.");
+            }
+        });
+
+         // Обработчик для оценки дела
+         var caseEvalButton = document.getElementById("caseEvalButton");
+        caseEvalButton.addEventListener("click", function () {
+            let caseDescription = prompt("Опишите ваше дело для предварительной оценки:");
+            if(caseDescription) {
+                alert("Ваше дело передано для оценки. Мы свяжемся с вами.");
+                // Здесь можно отправить описание дела на сервер для обработки юристом
+            } else {
+                alert("Описание дела не введено.");
+            }
+        });
+
+  
+
+
+        // Массив с услугами
+        const services = [
+            "Консультации по корпоративному праву",
+            "Составление договоров",
+            "Регистрация бизнеса",
+            "Судебное представительство",
+            "Юридическая помощь в налоговых вопросах"
+        ];
+
+        // Массив с описаниями для каждой услуги
+        const serviceDescriptions = [
+            "Помогаем в создании и управлении компаниями, консультируем по вопросам корпоративного права.",
+            "Подготавливаем, анализируем и редактируем юридические документы и договоры.",
+            "Сопровождаем процесс регистрации компаний и других бизнес-структур.",
+            "Представляем интересы клиентов в судах различных инстанций.",
+            "Консультируем по налоговым вопросам, помогаем минимизировать налоговые риски."
+        ];
+
+        const serviceList = document.getElementById('service-list');
+        const serviceDescription = document.getElementById('service-description');
+
+        // Добавляем список услуг с помощью цикла for
+for (let i = 0; i < services.length; i++) {
+    // Создаем новый элемент div для каждой услуги
+    let serviceItem = document.createElement('div');
+    
+    // Присваиваем классу 'service-item' каждому элементу
+    serviceItem.classList.add('service-item');
+    
+    // Устанавливаем текстовое содержимое для элемента (номер и название услуги)
+    serviceItem.textContent = `${i + 1}. ${services[i]}`;
+    
+    // Добавляем обработчик событий для наведения мыши (mouseover)
+    serviceItem.addEventListener('mouseover', () => {
+        // При наведении показываем описание соответствующей услуги
+        serviceDescription.textContent = serviceDescriptions[i];
+        // Убираем класс 'hidden' для отображения описания
+        serviceDescription.classList.remove('hidden');
+    });
+    
+    // Добавляем обработчик событий, когда мышь уходит с элемента (mouseout)
+    serviceItem.addEventListener('mouseout', () => {
+        // При уходе мыши скрываем описание услуги, добавив класс 'hidden'
+        serviceDescription.classList.add('hidden');
+    });
+    
+    // Добавляем каждый элемент услуги в общий список (serviceList)
+    serviceList.appendChild(serviceItem);
+}
+
+
+
+        // Массив с юридическими советами
+        const legalTips = [
+            "Всегда внимательно читайте договоры перед подписанием.",
+            "Не откладывайте решение правовых вопросов на потом — это может усложнить ситуацию.",
+            "Консультируйтесь с юристом перед тем, как начать бизнес или заключить крупную сделку.",
+            "В случае судебных споров лучше обратиться к юристу на ранних этапах.",
+            "Проверьте всю документацию при покупке недвижимости, чтобы избежать рисков.",
+            "Если у вас есть вопросы по налогам, лучше обратиться за консультацией к специалистам."
+        ];
+
+    
+       // Функция для случайного перемешивания массива
+function shuffleArray(array) {
+    // Проходим по массиву с конца к началу
+    for (let i = array.length - 1; i > 0; i--) {
+        // Выбираем случайный индекс от 0 до i (включительно)
+        let j = Math.floor(Math.random() * (i + 1));
+        
+        // Меняем местами элементы массива с индексами i и j
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    
+    // Возвращаем перемешанный массив
+    return array;
+}
+
+
+// Перемешиваем юридические советы и выводим случайные советы на страницу
+// Вызываем shuffleArray() для перемешивания массива legalTips
+const shuffledTips = shuffleArray(legalTips);
+
+// Находим элемент на странице с id 'tip-list', в который будут добавляться советы
+const tipList = document.getElementById('tip-list');
+const numTipsToShow = 3;
+
+for (let i = 0; i < numTipsToShow; i++) {
+    // Создаем новый div элемент, который будет содержать каждый совет
+    let tipItem = document.createElement('div');
+    // Добавляем класс 'tip-item' к этому div для стилизации (можно прописать в CSS)
+    tipItem.classList.add('tip-item');
+    
+    // Создаем новый элемент <p>, который будет содержать текст совета
+    let tipElement = document.createElement('p');
+    // Устанавливаем текстовый контент элемента <p> как совет из перемешанного массива shuffledTips
+    tipElement.textContent = `Совет: ${shuffledTips[i]}`;
+     // Вставляем элемент <p> в div (tipItem)
+    tipItem.appendChild(tipElement);
+
+    // Добавляем div (tipItem) в список советов на странице (в элемент tipList)
+    tipList.appendChild(tipItem);
+}
+
+  // Объект person, содержащий имя и возраст
+let person = {
+    name: "Ернур",
+    age: 18
+};
+
+// Массив всех элементов, связанных с объектом, которые будут обновляться на странице
+const elements = Array.from(document.querySelectorAll('.data'));
+
+// Массив идентификаторов инпутов
+const inputIds = ['inputName', 'inputAge'];
+
+// Функция для обновления отображения данных на странице
+function updatePage() {
+    // Проходим по каждому элементу в массиве elements
+    for (let i = 0; i < elements.length; i++) {
+        // Получаем ключ из атрибута data-key элемента
+        const key = elements[i].getAttribute('data-key');
+        // Обновляем текстовое содержимое элемента данными из объекта person
+        elements[i].textContent = person[key];
+    }
+}
+
+// Функция для обновления объекта через введенные данные из инпутов
+function updatePersonFromInput() {
+    // Проходим по массиву идентификаторов инпутов
+    for (let i = 0; i < inputIds.length; i++) {
+// Получаем значение из инпута по его идентификатору
+        const inputValue = document.getElementById(inputIds[i]).value;
+        // Условие для проверки и обновления имени
+        if (inputIds[i] === 'inputName' && inputValue) {
+            person.name = inputValue;  // Обновляем имя в объекте person
+        }
+
+        // Условие для проверки и обновления возраста
+        if (inputIds[i] === 'inputAge' && inputValue) {
+            person.age = parseInt(inputValue);  // Преобразуем строку в число и обновляем возраст
+        }
+    }
+
+    // Обновляем данные на странице с новыми значениями
+    updatePage();
+}
+
+// Первоначальное обновление страницы для отображения исходных данных
+updatePage();
+
+
+</script>
+</body>
+</html>
